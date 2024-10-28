@@ -1,0 +1,39 @@
+﻿version: "3"
+services: 
+    metabase:
+        image: metabase/metabase:latest
+        container_name: metabase
+        restart: always
+        hostname: localhost
+        networks: 
+            - default
+        depends_on:
+            - postgres15x
+        environment:
+            MB_DB_TYPE: postgres
+            MB_DB_DBNAME: metabase
+            MB_DB_PORT: 5432
+            MB_DB_USER: xxxhand
+            MB_DB_PASS: hellokitty
+            MB_DB_HOST: postgres15x
+        ports:
+            - "9856:3000"                
+    postgres15x:
+        image: postgres:15.5-alpine
+        container_name: postgres15x
+        restart: always
+        hostname: localhost
+        volumes:
+            - ~/Documents/docker-data/postgres/data:/var/lib/postgresql/data
+        networks: 
+            - default
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: hellokitty
+        ports:
+            - "5432:5432"
+            - "8443:8443"
+networks:
+    default:
+        external: true 
+        name: docker-data_default    

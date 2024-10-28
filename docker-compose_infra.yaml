@@ -1,0 +1,110 @@
+﻿version: "3"
+services: 
+    mongodb:
+        # image: mongo:6.0.11
+        image: mongo:7.0.12
+        container_name: mongodb
+        # command: ["--auth"]
+        volumes:
+            - mongodata:/data/db
+            # - ~/Documents/docker-data/mongo/data/configdb:/data/configdb
+            # - ~/Documents/docker-data/mongo/data/db:/data/db
+        networks: 
+            - default
+        restart: always
+        ports: 
+            - "27017:27017"
+    redis5x:
+        image: redis:5.0.7
+        container_name: redis5x
+        command: redis-server /usr/local/etc/redis/redis.conf
+        volumes:
+            - ~/Documents/docker-data/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+        networks: 
+            - default
+        restart: always
+        ports:
+            - "6379:6379"
+    queue:
+        image: rabbitmq:3-management
+        container_name: mq3
+        restart: always
+        hostname: localhost
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+    # metabase:
+    #     image: metabase/metabase:latest
+    #     container_name: metabase
+    #     restart: always
+    #     hostname: localhost
+    #     networks: 
+    #         - default
+    #     depends_on:
+    #         - postgres15x
+    #     environment:
+    #         MB_DB_TYPE: postgres
+    #         MB_DB_DBNAME: metabase
+    #         MB_DB_PORT: 5432
+    #         MB_DB_USER: xxxhand
+    #         MB_DB_PASS: hellokitty
+    #         MB_DB_HOST: postgres15x
+    #     ports:
+    #         - "9856:3000"                
+    # postgres15x:
+    #     image: postgres:15.5-alpine
+    #     container_name: postgres15x
+    #     restart: always
+    #     hostname: localhost
+    #     volumes:
+    #         # - postgresdata:/var/lib/postgresql/data
+    #         - ~/Documents/docker-data/postgres/data:/var/lib/postgresql/data
+    #     networks: 
+    #         - default
+    #     environment:
+    #         POSTGRES_USER: postgres
+    #         POSTGRES_PASSWORD: hellokitty
+    #     ports:
+    #         - "5432:5432"
+    #         - "8443:8443"
+    # keycloak1x:
+    #     image: jboss/keycloak:latest
+    #     container_name: keycloak1x
+    #     restart: always
+    #     environment:
+    #         DB_VENDOR: POSTGRES
+    #         DB_ADDR: postgres9x
+    #         DB_DATABASE: keycloak
+    #         DB_USER: xxxhand
+    #         DB_SCHEMA: public
+    #         DB_PASSWORD: hellokitty
+    #         KEYCLOAK_USER: admin
+    #         KEYCLOAK_PASSWORD: admin
+    #     ports:
+    #         - "8080:8080"
+    #     depends_on:
+    #         - postgres9x
+#     nginx:
+#         image: nginx:1.20.0-alpine
+#         container_name: nginx1x
+#         restart: always
+#         volumes:
+#             - ~/Documents/docker-data/nginx1x/html:/usr/share/nginx/html
+#             - ~/Documents/docker-data/nginx1x/nginx:/etc/nginx
+#             - ~/Documents/docker-data/nginx1x/log:/var/log/nginx
+#         networks: 
+#             - default
+#         ports:
+#             - "9002:9002"
+#             - "9001:9001"
+#         extra_hosts:
+#             - "localnode:192.168.0.193"
+volumes: 
+    mongodata:
+        external: 'false'
+#     postgresdata:
+#         external: 'false'
+networks:
+    default:
+        external: true 
+        name: docker-data_default    
