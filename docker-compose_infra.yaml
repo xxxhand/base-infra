@@ -6,9 +6,9 @@ services:
         container_name: mongodb
         # command: ["--auth"]
         volumes:
-            - mongodata:/data/db
-            # - ~/Documents/docker-data/mongo/data/configdb:/data/configdb
-            # - ~/Documents/docker-data/mongo/data/db:/data/db
+            # - mongodata:/data/db
+            - /home/xxxhand/Documents/docker-data/mongo/data/configdb:/data/configdb
+            - /home/xxxhand/Documents/docker-data/mongo/data/db:/data/db
         networks: 
             - default
         restart: always
@@ -19,20 +19,20 @@ services:
         container_name: redis5x
         command: redis-server /usr/local/etc/redis/redis.conf
         volumes:
-            - ~/Documents/docker-data/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+            - /home/xxxhand/Documents/docker-data/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
         networks: 
             - default
         restart: always
         ports:
             - "6379:6379"
-    queue:
-        image: rabbitmq:3-management
-        container_name: mq3
-        restart: always
-        hostname: localhost
-        ports:
-            - "5672:5672"
-            - "15672:15672"
+    # queue:
+    #     image: rabbitmq:3-management
+    #     container_name: mq3
+    #     restart: always
+    #     hostname: localhost
+    #     ports:
+    #         - "5672:5672"
+    #         - "15672:15672"
     # metabase:
     #     image: metabase/metabase:latest
     #     container_name: metabase
