@@ -84,19 +84,20 @@ services:
     #         - "8080:8080"
     #     depends_on:
     #         - postgres9x
-#     nginx:
-#         image: nginx:1.20.0-alpine
-#         container_name: nginx1x
-#         restart: always
-#         volumes:
-#             - ~/Documents/docker-data/nginx1x/html:/usr/share/nginx/html
-#             - ~/Documents/docker-data/nginx1x/nginx:/etc/nginx
-#             - ~/Documents/docker-data/nginx1x/log:/var/log/nginx
-#         networks: 
-#             - default
-#         ports:
-#             - "9002:9002"
-#             - "9001:9001"
+    nginx:
+        image: nginx:1.20.0-alpine
+        container_name: nginx1x
+        restart: always
+        volumes:
+            - /home/xxxhand/Documents/docker-data/nginx1x/html:/usr/share/nginx/html
+            - /home/xxxhand/Documents/docker-data/nginx1x/nginx:/etc/nginx
+            - /home/xxxhand/Documents/docker-data/nginx1x/log:/var/log/nginx
+        networks: 
+            - default
+        ports:
+            - "9002:9002"
+            - "9001:9001"
+            - "80:80"
 #         extra_hosts:
 #             - "localnode:192.168.0.193"
 volumes: 
