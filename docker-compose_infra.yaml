@@ -2,24 +2,27 @@
 services: 
     mongodb:
         # image: mongo:6.0.11
+        user: "${USER_ID}:${GROUP_ID}"
         image: mongo:7.0.12
         container_name: mongodb
         # command: ["--auth"]
         volumes:
             # - mongodata:/data/db
-            - /home/xxxhand/Documents/docker-data/mongo/data/configdb:/data/configdb
-            - /home/xxxhand/Documents/docker-data/mongo/data/db:/data/db
+            - ${MONGO_CONF_DEST}:/data/configdb
+            - ${MONGO_DB_DEST}:/data/db
         networks: 
             - default
         restart: always
+        privileged: true
         ports: 
             - "27017:27017"
-    redis5x:
-        image: redis:5.0.7
-        container_name: redis5x
+    redis:
+        user: "${USER_ID}:${GROUP_ID}"
+        image: redis:7.4
+        container_name: redis
         command: redis-server /usr/local/etc/redis/redis.conf
         volumes:
-            - /home/xxxhand/Documents/docker-data/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+            - ${REDIS_DEST}/conf/redis.conf:/usr/local/etc/redis/redis.conf
         networks: 
             - default
         restart: always
@@ -89,9 +92,9 @@ services:
         container_name: nginx1x
         restart: always
         volumes:
-            - /home/xxxhand/Documents/docker-data/nginx1x/html:/usr/share/nginx/html
-            - /home/xxxhand/Documents/docker-data/nginx1x/nginx:/etc/nginx
-            - /home/xxxhand/Documents/docker-data/nginx1x/log:/var/log/nginx
+            - ${NGINX_DEST}/html:/usr/share/nginx/html
+            - ${NGINX_DEST}/nginx:/etc/nginx
+            - ${NGINX_DEST}/log:/var/log/nginx
         networks: 
             - default
         ports:
