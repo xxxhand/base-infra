@@ -39,7 +39,7 @@ echo "Redis at $REDIS_DEST"
 
 echo "Starting or stop the docker containers..."
 if [ "$ACTION" == "stop" ]; then
-  docker-compose -f docker-compose_infra.yaml down
+  docker-compose -f docker-compose_infra.yaml down --remove-orphans
   exit
 fi
 docker-compose -f docker-compose_infra.yaml up -d
