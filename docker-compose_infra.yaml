@@ -28,14 +28,14 @@ services:
         restart: always
         ports:
             - "6379:6379"
-    # queue:
-    #     image: rabbitmq:3-management
-    #     container_name: mq3
-    #     restart: always
-    #     hostname: localhost
-    #     ports:
-    #         - "5672:5672"
-    #         - "15672:15672"
+    queue:
+        image: rabbitmq:3-management
+        container_name: mq3
+        restart: always
+        hostname: localhost
+        ports:
+            - "5672:5672"
+            - "15672:15672"
     # metabase:
     #     image: metabase/metabase:latest
     #     container_name: metabase
