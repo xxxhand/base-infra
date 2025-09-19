@@ -14,7 +14,7 @@ export USER_ID=$(id -u)
 export GROUP_ID=$(id -g)
 
 # Define source and destination directories
-TARGET_DIR="/Users/$USER_NAME/Documents/docker-data"
+TARGET_DIR="/home/$USER_NAME/Documents/docker-data"
 NGINX_SRC="./nginx1x"
 REDIS_SRC="./redis"
 
@@ -39,7 +39,7 @@ echo "Redis at $REDIS_DEST"
 
 echo "Starting or stop the docker containers..."
 if [ "$ACTION" == "stop" ]; then
-  docker-compose -f docker-compose_infra.yaml down --remove-orphans
+  docker compose -f docker-compose_infra.yaml down --remove-orphans
   exit
 fi
-docker-compose -f docker-compose_infra.yaml up -d
+docker compose -f docker-compose_infra.yaml up -d
